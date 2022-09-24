@@ -1,13 +1,9 @@
-import 'package:flutter/material.dart';
-
 import 'package:fluro/fluro.dart';
 
-import '../widgets/error_page.dart';
 import '../widgets/home_page.dart';
 
 class PageRouter {
   static String homePage = "/homePage";
-  static String cityListPage = '/homePage/cityListPage';
   static final Map<String, Handler> pageRouters = {
     "/": Handler(
       handlerFunc: (context, param) {
@@ -23,7 +19,7 @@ class PageRouter {
   static final router = FluroRouter();
   static final notFoundHandler =
       Handler(handlerFunc: (context, params) {
-    return const ErrorPage();
+    return const HomePage();
   });
 
   static setRouters() {
