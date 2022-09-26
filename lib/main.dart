@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:weather_head/routers/page_router.dart';
 import 'package:weather_head/widgets/home_page.dart';
 
@@ -13,12 +14,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '头顶上的天气',
-      onGenerateRoute: PageRouter.router.generator,
-      home: const HomePage(
-        city: '深圳',
-      ),
+    return const GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      defaultTransition: Transition.fade,
+      home: HomePage(),
     );
   }
 }
