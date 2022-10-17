@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_head/widgets/weather_page.dart';
 
 class HomePage extends StatelessWidget {
   final String? city;
@@ -7,7 +8,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return WeatherPage();
   }
 
 }

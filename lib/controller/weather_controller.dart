@@ -1,7 +1,15 @@
-import 'package:get/get.dart';
+import 'dart:io';
 
-import '../model/weather.dart';
+import 'package:get/get.dart';
+import '../model/weathers.dart';
+import '../service/weather_service.dart';
 
 class WeatherController extends GetxController {
-  final Weather state = Weather();
+  final Weathers state = Weathers();
+
+  getWeather(String latitude, String longitude) async {
+    WeatherService().get(latitude, longitude).then((res) => {
+          if (HttpStatus.ok == res.statusCode) {Weathers.fromJson(res.data)}
+        });
+  }
 }
