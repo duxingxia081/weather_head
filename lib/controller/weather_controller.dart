@@ -1,51 +1,55 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
-import 'package:weather_head/model/minutely.dart';
+
+import '../model/daily_entity.dart';
+import '../model/hourly_entity.dart';
+import '../model/minutely_entity.dart';
+import '../model/realtime_entity.dart';
 import '../service/weather_service.dart';
 
 class WeatherController extends GetxController {
-  late Minutely minutely = Minutely();
+  MinutelyEntity minutely = MinutelyEntity();
+  RealtimeEntity realtime = RealtimeEntity();
+  HourlyEntity hourly = HourlyEntity();
+  DailyEntity daily = DailyEntity();
 
+  //分钟级
   getMinutely(String latitude, String longitude) async {
-    WeatherService()
-        .get('/$latitude,$longitude/minutely', latitude, longitude)
-        .then((data) {
-      //minutely = Minutely.fromJson(data);
-      log(minutely.toString());
+    WeatherService().get('/$latitude,$longitude/minutely').then((data) {
+      minutely = MinutelyEntity.fromJson(data);
     });
   }
+
+  //实时
   getRealtime(String latitude, String longitude) async {
-    WeatherService()
-        .get('/$latitude,$longitude/realtime', latitude, longitude)
-        .then((data) {
-      //minutely = Minutely.fromJson(data);
-      log(minutely.toString());
+    WeatherService().get('/$latitude,$longitude/realtime').then((data) {
+      realtime = RealtimeEntity.fromJson(data);
     });
   }
+
+  //小时
   getHourly(String latitude, String longitude) async {
     WeatherService()
-        .get('/$latitude,$longitude/hourly?hourlysteps=1', latitude, longitude)
+        .get('/$latitude,$longitude/hourly?hourlysteps=1')
         .then((data) {
-      //minutely = Minutely.fromJson(data);
-      log(minutely.toString());
-    });
-  }
-  getDaily(String latitude, String longitude) async {
-    WeatherService()
-        .get('/$latitude,$longitude/daily?dailysteps=1', latitude, longitude)
-        .then((data) {
-      //minutely = Minutely.fromJson(data);
-      log(minutely.toString());
+      hourly = HourlyEntity.fromJson(data);
     });
   }
 
+  //天
+  getDaily(String latitude, String longitude) async {
+    WeatherService()
+        .get('/$latitude,$longitude/daily?dailysteps=1')
+        .then((data) {
+      daily = DailyEntity.fromJson(data);
+    });
+  }
+
+  //汇总
   getWeather(String latitude, String longitude) async {
     WeatherService()
-        .get('/$latitude,$longitude/weather?dailysteps=1&hourlysteps=24', latitude, longitude)
+        .get('/$latitude,$longitude/weather?dailysteps=1&hourlysteps=24')
         .then((data) {
-      //minutely = Minutely.fromJson(data);
-      log(minutely.toString());
+      //weather = WeatherEntity.fromJson(data);
     });
   }
 }

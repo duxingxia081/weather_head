@@ -1,7 +1,7 @@
 import '../common/api.dart';
 
 class WeatherService {
-  Future<Map<String, dynamic>> get(String api,String latitude, String longitude) async {
+  Future<Map<String, dynamic>> get(String api) async {
     return await Api.request(api);
   }
 }
