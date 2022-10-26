@@ -24,14 +24,19 @@ class WeatherPage extends StatelessWidget {
   Widget mainWeather(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.of(context).size.height/2,
       child: Stack(
         children: [
           Image.network(
             'https://www.kuk8.com/uploads/allimg/190823/3-1ZR31J121911.jpg',
           ),
-          Positioned(
-              child: Text(realtime.result!.realtime!.temperature!.toString()))
+          Container(
+              child: Text(
+            realtime.result == null
+                ? ''
+                : realtime.result!.realtime!.temperature!.toString(),
+            style: const TextStyle(fontSize: 56),
+          ),alignment: Alignment.center,)
         ],
       ),
     );

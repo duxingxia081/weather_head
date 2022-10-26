@@ -6,6 +6,8 @@ import '../model/minutely_entity.dart';
 import '../model/realtime_entity.dart';
 import '../service/weather_service.dart';
 
+
+
 class WeatherController extends GetxController {
   MinutelyEntity minutely = MinutelyEntity();
   RealtimeEntity realtime = RealtimeEntity();
