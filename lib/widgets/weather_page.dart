@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../common/geolocator.dart';
 import '../controller/weather_controller.dart';
 
-class WeatherPage extends StatelessWidget {
+class WeatherPage extends StatefulWidget {
+  const WeatherPage({Key? key}) : super(key: key);
+
+  @override
+  State<WeatherPage> createState() => _WeatherPageState();
+}
+
+class _WeatherPageState extends State<WeatherPage> {
   final controller = Get.put(WeatherController());
   final minutely = Get.find<WeatherController>().minutely;
   final realtime = Get.find<WeatherController>().realtime;
 
-  WeatherPage({super.key});
+  @override
+  void initState() {
+    GaoLocator.getPosition()
+        .then((position) => controller.getRealtime(position.latitude, position.longitude));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    controller.getRealtime('116.3176', '39.9760');
     return DefaultTextStyle(
       style: const TextStyle(color: Colors.white),
       child: Column(
@@ -24,19 +36,21 @@ class WeatherPage extends StatelessWidget {
   Widget mainWeather(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height/2,
+      height: MediaQuery.of(context).size.height / 2,
       child: Stack(
         children: [
           Image.network(
             'https://www.kuk8.com/uploads/allimg/190823/3-1ZR31J121911.jpg',
           ),
           Container(
-              child: Text(
-            realtime.result == null
-                ? ''
-                : realtime.result!.realtime!.temperature!.toString(),
-            style: const TextStyle(fontSize: 56),
-          ),alignment: Alignment.center,)
+            alignment: Alignment.center,
+            child: Text(
+              realtime.result == null
+                  ? ''
+                  : realtime.result!.realtime!.temperature!.toString(),
+              style: const TextStyle(fontSize: 56),
+            ),
+          )
         ],
       ),
     );

@@ -22,8 +22,9 @@ class WeatherController extends GetxController {
   }
 
   //实时
-  getRealtime(String latitude, String longitude) async {
+  getRealtime(double latitude, double longitude) async {
     WeatherService().get('/$latitude,$longitude/realtime').then((data) {
+      print(data);
       realtime = RealtimeEntity.fromJson(data);
     });
   }
